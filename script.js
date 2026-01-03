@@ -33,6 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 添加这个新函数
 function showInitialWelcome() {
+    // 先检查是否已经有欢迎消息
+    const existingWelcome = document.querySelector('#chat-messages .bot-message:first-child');
+    if (existingWelcome) {
+        console.log('已经有欢迎消息，跳过添加');
+        return;
+    }
+    
     const currentLang = window.I18N ? window.I18N.getCurrentLang() : 'zh';
     const welcomeMsg = currentLang === 'en' 
         ? "Hi!I'm the Shenyang Chatbot - straightforward and sincere. I know everything about Shenyang and care about how this ordinary city is going global. Turn on dialect mode for local flavor, or use quick questions to explore Shenyang!"
@@ -777,11 +784,14 @@ function bindHistoryRefreshButton() {
     
     // 🔥 关键：检查是否有用户消息（是否已经开始对话）
     const hasUserMessages = document.querySelectorAll('.user-message').length > 0;
+    const chatMessages = document.getElementById('chat-messages');
     
-    // 如果没有用户消息（只有欢迎消息），清除并重新添加
-    if (!hasUserMessages) {
-        // 立即清除聊天窗口，避免闪烁
-        chatMessages.innerHTML = '';
+    if (!hasUserMessages && chatMessages) {
+        // 如果有旧的欢迎消息，先移除
+        const oldWelcome = chatMessages.querySelector('.bot-message');
+        if (oldWelcome) {
+            oldWelcome.remove();
+        }
         
         // 延迟一点时间添加新消息
         setTimeout(() => {
@@ -801,6 +811,8 @@ function bindHistoryRefreshButton() {
         updateDialectHint();
         // 不再调用 updateWelcomeMessageOnLanguageChange()，因为上面已经处理了
     }, 100);
+
+
 });
 
 // 保留 updateDialectHint 函数（但不再需要 updateWelcomeMessageOnLanguageChange）
