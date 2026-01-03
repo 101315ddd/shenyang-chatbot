@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shenyang Chatbot-Let the World Know Shenyang</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                 <span data-i18n="site_title">Shenyang Consultant</span>
+    </div>
+    <!-- 新增：语言切换按钮 -->
+    <button id="language-toggle" class="lang-toggle-btn">
+        <i class="fas fa-language"></i> <span data-i18n="switch_to_chinese">EN/中文</span>
+    </button>
+</div>
+
+    <!-- 主内容区 -->
+    <main class="main-container">
+        <!-- 左侧控制面板 -->
+        <aside class="control-panel">
+            <div class="panel-section">
+    <h3><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></h3>
+   <div class="setting-option">
+    <div class="toggle-switch">
+        <!-- 移除 checked 属性，让开关默认关闭 -->
+        <input type="checkbox" id="dialect-toggle">
+        <label for="dialect-toggle"></label>
+        <span data-i18n="dialect_mode">Dialect Mode</span>
+    </div>
+    <!-- 在这里添加提示文字 -->
+    <p class="dialect-hint" data-i18n="dialect_hint_en">
+   
+</div>
+                
+            </div>
+            
+            <div class="panel-section">
+               <h3><i class="fas fa-bolt"></i> <span data-i18n="quick_questions_title">Quick Questions</span></h3>
+                <div class="quick-questions">
+
+<!-- 按钮2: Historical Sites -->
+<button class="quick-btn" data-i18n="quick_history" data-question-en="What are the historical sites in Shenyang?" data-question-zh="沈阳有什么历史名胜">
+    <i class="fas fa-landmark"></i> <span data-i18n="quick_history">Historical Sites</span>
+</button>
+
+<!-- 按钮3: Special Cuisine -->
+<button class="quick-btn" data-i18n="quick_food" data-question-en="What are the specialty foods in Shenyang?" data-question-zh="沈阳的特色美食有哪些">
+    <i class="fas fa-utensils"></i> <span data-i18n="quick_food">Special Cuisine</span>
+</button>
+
+<!-- 按钮4: Globalization -->
+<button class="quick-btn" data-i18n="quick_global" data-question-en="How is Shenyang going global?" data-question-zh="沈阳如何走向国际化">
+    <i class="fas fa-globe"></i> <span data-i18n="quick_global">Globalization</span>
+</button>
+
+<!-- 按钮5: Industrial Development -->
+<button class="quick-btn" data-i18n="quick_industry" data-question-en="How about the industrial development of Shenyang?" data-question-zh="沈阳的工业发展怎么样">
+    <i class="fas fa-industry"></i> <span data-i18n="quick_industry">Industrial Development</span>
+</button>
+
+<!-- 按钮6: Travel Routes -->
+<button class="quick-btn" data-i18n="quick_travel" data-question-en="Recommend a one-day tour route in Shenyang." data-question-zh="推荐沈阳一日游路线">
+    <i class="fas fa-map-marked-alt"></i> <span data-i18n="quick_travel">Travel Routes</span>
+</button>
+                   
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <h3><i class="fas fa-chart-bar"></i> <span data-i18n="data_panel_title">沈阳数据</span></h3>
+                <div class="stats-grid">
+    <div class="stat-card">
+        <!-- 将数字和单位分开，让单位也能翻译 -->
+        <div class="stat-value">2300<span data-i18n="year_unit">年</span></div>
+        <div class="stat-label" data-i18n="stat_history">建城历史</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">900<span data-i18n="ten_thousand_unit">万+</span></div>
+        <div class="stat-label" data-i18n="stat_population">常住人口</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">23<span data-i18n="unit_ge">个</span></div>
+        <div class="stat-label" data-i18n="stat_sister_cities">友好城市</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">15000+</div>
+        <div class="stat-label" data-i18n="stat_foreign_companies">外资企业</div>
+    </div>
+</div>
+            </div>
+            
+            <div class="panel-section">
+                <button id="clear-chat" class="clear-btn">
+    <i class="fas fa-trash"></i> <span data-i18n="clear_chat">清空对话</span>
+</button>
+                <!-- <button id="export-chat" class="export-btn">
+                    <i class="fas fa-download"></i> 导出对话
+                </button> -->
+            </div>
+        </aside>
+
+        <!-- 聊天主区域 -->
+        <section class="chat-area">
+            <!-- 聊天头部 -->
+            <div class="chat-header">
+                <div class="chat-title">
+    <h2 data-i18n="chat_title">Shenyang Chatbot</h2>
+    <p class="chat-subtitle" data-i18n="chat_subtitle">Let the World Know Shenyang!</p>
+</div>
+                <div class="chat-status">
+    <div class="status-indicator online"></div>
+    <span class="status-text" data-i18n="status_online">Online</span>
+</div>
+            
+            <!-- 聊天消息容器 -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- 初始欢迎消息 -->
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-sender">沈阳顾问</div>
+                        <div class="message-text" data-i18n="welcome_message"></div>
+                            嗨！我是沈阳顾问！咱沈阳银实在，有啥想唠的尽管说！
+                            <br><br>
+                            您是想了解沈阳的：
+                            <ul class="suggestion-list">
+                                <li>历史文化（故宫、清文化）</li>
+                                <li>工业发展（共和国长子）</li>
+                                <li>特色美食（老边饺子、熏肉大饼、老四季鸡架）</li>
+                                <li>国际化发展（中德产业园、自贸区）</li>
+                                <li>旅游景点（棋盘山、浑河）</li>
+                            </ul>
+                            您也可以点击左侧的快速提问按钮，或者直接输入问题！
+                        </div>
+                        <div class="message-time">刚刚</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 输入区域 -->
+            <div class="input-area">
+                <!-- <div class="input-tools">
+                    <button class="tool-btn" title="语音输入">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="tool-btn" title="上传图片">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <button class="tool-btn" title="表情">
+                        <i class="far fa-smile"></i>
+                    </button>
+                </div> -->
+                <div class="input-wrapper">
+                    <textarea 
+                        id="user-input" 
+                        placeholder=""
+                        rows="1"></textarea>
+                    <button id="send-btn" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-hint">
+    <i class="fas fa-info-circle"></i>
+    <span data-i18n="input_hint">按Enter发送，Shift+Enter换行</span>
+</div>
+            </div>
+        </section>
+
+        <!-- 右侧信息面板 -->
+<aside class="info-panel">
+    <div class="panel-section">
+        <!-- 添加翻译标记
+        <h3><i class="fas fa-user-circle"></i> <span data-i18n="personality_title">沈阳人格特征</span></h3>
+         这个h4标签可能不需要，但如果要翻译可以这样： -->
+        <!-- <h4><i class="dialect-original"></i> <span data-i18n="trait_hospitality">豪爽好客</span></h4> -->
+
+        
+        <div class="dialect-examples">
+            <!-- 添加翻译标记 -->
+            <h4><i class="fas fa-language"></i> <span data-i18n="dialect_examples">沈阳话示例</span></h4>
+            <!-- 添加英文提示 -->
+            <p class="dialect-hint" data-i18n="dialect_hint">该部分展示具有沈阳特色的方言词汇。</p>
+            <!-- 下面的方言示例不需要翻译，保持中文 -->
+            <div class="dialect-item">
+                <span class="dialect-original">干什么</span>
+                <span class="dialect-arrow">→</span>
+                <span class="dialect-translation">嘎哈</span>
+            </div>
+            <div class="dialect-item">
+                <span class="dialect-original">仁义</span>
+                <span class="dialect-arrow">→</span>
+                <span class="dialect-translation">银翼</span>
+            </div>
+            <div class="dialect-item">
+                <span class="dialect-original">聊天</span>
+                <span class="dialect-arrow">→</span>
+                <span class="dialect-translation">唠嗑</span>
+            </div>
+            <div class="dialect-item">
+                <span class="dialect-original">很好</span>
+                <span class="dialect-arrow">→</span>
+                <span class="dialect-translation">杠杠的</span>
+            </div>
+        </div>
+    </div>
+    
+  
+    <div class="panel-section">
+    <h3><i class="fas fa-history"></i> <span data-i18n="todays_history">每日沈阳历史</span></h3>
+    <div class="history-fact">
+        <p id="daily-history-text" data-i18n="history_fact_text">正在加载每日历史...</p>
+        <p class="fact-source" data-i18n="history_fact_source">来源：《沈阳地方志》</p>
+    </div>
+    <button id="more-history" class="history-btn" data-i18n="learn_more_history" 
+            data-question-en="Tell me more about Shenyang's history" 
+            data-question-zh="告诉我更多关于沈阳的历史">
+        <span data-i18n="learn_more_history">了解更多历史</span>
+    </button>
+    <button id="refresh-history" class="refresh-btn" title="刷新历史">
+        <i class="fas fa-redo-alt"></i> <span data-i18n="refresh">刷新</span>
+    </button>
+</div>
+</aside>
+    </main>
+
+    <!-- 修改页脚部分 -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+          <h4 data-i18n="footer_title">沈阳聊天机器人 / Shenyang Buddy Chatbot</h4>
+<p data-i18n="footer_slogan_zh">让世界听见沈阳的声音，感受沈阳的温度</p>
+<p data-i18n="footer_slogan_en">Hearing Shenyang's voice, feeling Shenyang's warmth</p>
+<p style="font-size: 0.9rem; margin-top: 10px;">
+    <i class="fas fa-language"></i> <span data-i18n="bilingual_support">双语支持：中文/English</span>
+</p>  
+        </div>
+        <div class="footer-section">
+            <h4 data-i18n="contact_us">联系我们 / Contact Us</h4>
+            <p>Email: 3240105647@zju.edu.cn</p>
+            <p>建议与反馈欢迎发送至以上邮箱</p>
+        </div>
+        <div class="footer-section">
+            <h4 data-i18n="follow_shenyang">关注沈阳 / Follow Shenyang</h4>
+            <div class="social-links">
+                <!-- <a href="#"><i class="fab fa-weixin"></i></a> -->
+                <a href="https://weibo.com/n/%E6%B2%88%E9%98%B3%E5%8F%91%E5%B8%83" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-weibo"></i>
+                </a>
+                <!-- <a href="#"><i class="fab fa-tiktok"></i></a> -->
+                <a href="https://x.com/shenyangchina?s=21" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 10px;">
+    <span data-i18n="footer_slogan_casual">You betcha, Shenyang's going global!</span>
+</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 沈阳聊天机器人 - Shenyang  Chatbot</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">弘扬沈阳文化，促进国际交流 | Promoting Shenyang culture, fostering international exchange</p>
+    </div>
+</footer>
+
+    <!-- 页脚 -->
+    <!-- <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>沈阳聊天机器人</h4>
+                <p>让世界听见沈阳的声音，感受沈阳的温度</p>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <p>Email: 3240105647@zju.edu.cn</p>
+                <p>建议与反馈欢迎发送至以上邮箱</p>
+            </div>
+            <div class="footer-section">
+                <h4>关注沈阳</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="https://weibo.com/n/%E6%B2%88%E9%98%B3%E5%8F%91%E5%B8%83" target="_blank" rel="noopener noreferrer"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://x.com/shenyangchina?s=21" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 沈阳聊天机器人 - 弘扬沈阳文化，促进国际交流</p>
+        </div>
+    </footer> -->
+
+    <!-- 加载JavaScript文件 -->
+    <!-- 在 index.html 的 body 末尾，确保顺序正确 -->
+<script>
+    // 全局变量定义（如果需要）
+    window.chatbotSettings = {
+        dialectMode: true,
+        historyMode: true,
+        globalMode: false
+    };
+</script>
+
+<!-- 引入 JavaScript 文件，注意顺序 -->
+<!-- 修改后的引入顺序 -->
+<script src="i18n.js"></script> <!-- 新增：国际化核心 -->
+<script src="api.js"></script>   <!-- 聊天机器人API -->
+<script src="script.js"></script> <!-- 主交互逻辑 -->
+
+</body>
+</html>
