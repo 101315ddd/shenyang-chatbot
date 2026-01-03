@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化
     initChat();
    // 显示初始欢迎消息（如果聊天窗口是空的）
-setTimeout(() => {
-    if (chatMessages.children.length === 0) {
-        showInitialWelcome();
-    }
-}, 1000);
+// setTimeout(() => {
+//     if (chatMessages.children.length === 0) {
+//         showInitialWelcome();
+//     }
+// }, 1000);
 
 // 添加这个新函数
 function showInitialWelcome() {
